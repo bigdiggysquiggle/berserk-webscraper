@@ -145,6 +145,8 @@ l = len(volumes)
 # that will make up our volumes, then start
 # actually aquiring the chapters and
 # converting them
+# TODO:
+#	rework the following logic for better efficiency
 volstr = "Volume 42"
 os.mkdir(volstr)
 os.chdir(volstr)
