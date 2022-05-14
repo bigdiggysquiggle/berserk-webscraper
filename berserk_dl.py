@@ -145,9 +145,7 @@ l = len(volumes)
 # that will make up our volumes, then start
 # actually aquiring the chapters and
 # converting them
-# TODO:
-#	rework the following logic for better efficiency
-volstr = "Volume 42"
+volstr = "Volume 41"
 os.mkdir(volstr)
 os.chdir(volstr)
 os.mkdir(os.getcwd().replace("jpeg", "pdf"))
@@ -160,6 +158,7 @@ for chapter in chapters:
 		make_vol(volstr)
 		volstr = "Volume " + str(l+i)
 		i -= 1
-		os.mkdir("../" + volstr)
-		os.chdir("../" + volstr)
-		os.mkdir(os.getcwd().replace("jpeg", "pdf"))
+        if l+i:
+    		os.mkdir("../" + volstr)
+    		os.chdir("../" + volstr)
+    		os.mkdir(os.getcwd().replace("jpeg", "pdf"))
