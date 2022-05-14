@@ -76,6 +76,7 @@ def make_vol(volstr):
 	merger.close()
 	merger=PdfFileMerger()
 	os.chdir(pwd)
+	print("Complete")
 
 # This was probably the easiest thing I've ever scraped.
 # The HTML for every chapter is laid out really clean
@@ -158,7 +159,7 @@ for chapter in chapters:
 		make_vol(volstr)
 		volstr = "Volume " + str(l+i)
 		i -= 1
-        if l+i:
-    		os.mkdir("../" + volstr)
-    		os.chdir("../" + volstr)
-    		os.mkdir(os.getcwd().replace("jpeg", "pdf"))
+		if l+i:
+			os.mkdir("../" + volstr)
+			os.chdir("../" + volstr)
+			os.mkdir(os.getcwd().replace("jpeg", "pdf"))
