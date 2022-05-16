@@ -42,3 +42,6 @@ the output directories in.
 Dependencies:
 -img2pdf
 -PyPDF2
+
+TODO:
+new bug. Something is being stuck together that shouldn't be
