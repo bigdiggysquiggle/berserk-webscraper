@@ -38,3 +38,7 @@ skills further so it was definitely not time wasted.
 To use this project, just run the berserk_dl.py script
 while inside whichever directory you want it to create
 the output directories in.
+
+Dependencies:
+-img2pdf
+-PyPDF2
