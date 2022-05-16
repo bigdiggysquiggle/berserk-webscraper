@@ -157,8 +157,9 @@ for chapter in chapters:
 	make_pdf(chap, volstr)
 	if chap == volumes[i]:
 		make_vol(volstr)
-		volstr = "Volume " + str(l+i)
-		i -= 1
-		os.mkdir("../" + volstr)
-		os.chdir("../" + volstr)
-		os.mkdir(os.getcwd().replace("jpeg", "pdf"))
+		if l+i:
+			volstr = "Volume " + str(l+i)
+			i -= 1
+			os.mkdir("../" + volstr)
+			os.chdir("../" + volstr)
+			os.mkdir(os.getcwd().replace("jpeg", "pdf"))
