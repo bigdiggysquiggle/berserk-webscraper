@@ -159,7 +159,6 @@ for chapter in chapters:
 		make_vol(volstr)
 		volstr = "Volume " + str(l+i)
 		i -= 1
-		if l+i:
-			os.mkdir("../" + volstr)
-			os.chdir("../" + volstr)
-			os.mkdir(os.getcwd().replace("jpeg", "pdf"))
+		os.mkdir("../" + volstr)
+		os.chdir("../" + volstr)
+		os.mkdir(os.getcwd().replace("jpeg", "pdf"))
