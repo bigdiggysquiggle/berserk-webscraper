@@ -113,53 +113,54 @@ def dl_chap(chapter):
 def get_vol_list():
 	return ['Berserk Chapter A0', 'Berserk Chapter D0', 'Berserk Chapter F0', 'Berserk Chapter J0', 'Berserk Chapter O0', 'Berserk Chapter 007', 'Berserk Chapter 017', 'Berserk Chapter 027', 'Berserk Chapter 037', 'Berserk Chapter 048', 'Berserk Chapter 059', 'Berserk Chapter 070', 'Berserk Chapter 080', 'Berserk Chapter 092', 'Berserk Chapter 100', 'Berserk Chapter 111', 'Berserk Chapter 122', 'Berserk Chapter 133', 'Berserk Chapter 144', 'Berserk Chapter 155', 'Berserk Chapter 166', 'Berserk Chapter 177', 'Berserk Chapter 187', 'Berserk Chapter 197', 'Berserk Chapter 207', 'Berserk Chapter 217', 'Berserk Chapter 227', 'Berserk Chapter 237', 'Berserk Chapter 247', 'Berserk Chapter 257', 'Berserk Chapter 267', 'Berserk Chapter 277', 'Berserk Chapter 287', 'Berserk Chapter 297', 'Berserk Chapter 307', 'Berserk Chapter 316', 'Berserk Chapter 325', 'Berserk Chapter 334', 'Berserk Chapter 343', 'Berserk Chapter 351', 'Berserk Chapter 359', 'Berserk Chapter 364']
 
-# Get our list of chapters that mark the start of each
-# volume
-volumes = get_vol_list()
-# Remove any previous output so that we don't have to
-# factor previous output into our logic, then make
-# our output directories
-if os.path.exists('output'):
-	shutil.rmtree('output')
-os.mkdir('output')
-os.chdir('output')
-os.mkdir('jpeg')
-os.mkdir('pdf')
-os.chdir('jpeg')
-# Get our main page, make our soup, and start
-# finding our chapters
-page=requests.get("https://readberserk.com")
-soup=BeautifulSoup(page.text, 'html.parser')
-chapters=soup.select('#content > div > div.col-md-8 > div.card.card-table > div.card-body.table-responsive.p-0 > table > tbody')
-chapters=chapters[0].find_all('tr')
-# -2 accounts for a nonsense entry at the end
-# of our volumes list and also drastically
-# simplifies our math and our access of the
-# actual volumes array. We're scraping from
-# the last chapter all the way back to the
-# first so the fact that Python offers an
-# easy way to access their data structures
-# in that same manner is really helpful
-i = -2
-l = len(volumes)
-# Set up our folders to contain the chapters
-# that will make up our volumes, then start
-# actually aquiring the chapters and
-# converting them
-volstr = "Volume 41"
-os.mkdir(volstr)
-os.chdir(volstr)
-os.mkdir(os.getcwd().replace("jpeg", "pdf"))
-for chapter in chapters:
-	chap = chapter.td.text
-	print(chap)
-	dl_chap(chapter)
-	make_pdf(chap, volstr)
-	if chap == volumes[i]:
-		make_vol(volstr)
-		if l+i:
-			volstr = "Volume " + str(l+i)
-			i -= 1
-			os.mkdir("../" + volstr)
-			os.chdir("../" + volstr)
-			os.mkdir(os.getcwd().replace("jpeg", "pdf"))
+if __name__ == '__main__':
+	# Get our list of chapters that mark the start of each
+	# volume
+	volumes = get_vol_list()
+	# Remove any previous output so that we don't have to
+	# factor previous output into our logic, then make
+	# our output directories
+	if os.path.exists('output'):
+		shutil.rmtree('output')
+	os.mkdir('output')
+	os.chdir('output')
+	os.mkdir('jpeg')
+	os.mkdir('pdf')
+	os.chdir('jpeg')
+	# Get our main page, make our soup, and start
+	# finding our chapters
+	page=requests.get("https://readberserk.com")
+	soup=BeautifulSoup(page.text, 'html.parser')
+	chapters=soup.select('#content > div > div.col-md-8 > div.card.card-table > div.card-body.table-responsive.p-0 > table > tbody')
+	chapters=chapters[0].find_all('tr')
+	# -2 accounts for a nonsense entry at the end
+	# of our volumes list and also drastically
+	# simplifies our math and our access of the
+	# actual volumes array. We're scraping from
+	# the last chapter all the way back to the
+	# first so the fact that Python offers an
+	# easy way to access their data structures
+	# in that same manner is really helpful
+	i = -2
+	l = len(volumes)
+	# Set up our folders to contain the chapters
+	# that will make up our volumes, then start
+	# actually aquiring the chapters and
+	# converting them
+	volstr = "Volume 41"
+	os.mkdir(volstr)
+	os.chdir(volstr)
+	os.mkdir(os.getcwd().replace("jpeg", "pdf"))
+	for chapter in chapters:
+		chap = chapter.td.text
+		print(chap)
+		dl_chap(chapter)
+		make_pdf(chap, volstr)
+		if chap == volumes[i]:
+			make_vol(volstr)
+			if l+i:
+				volstr = "Volume " + str(l+i)
+				i -= 1
+				os.mkdir("../" + volstr)
+				os.chdir("../" + volstr)
+				os.mkdir(os.getcwd().replace("jpeg", "pdf"))
