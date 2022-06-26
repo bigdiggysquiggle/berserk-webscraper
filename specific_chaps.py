@@ -33,18 +33,21 @@ def get_chaps(chapters, chapset):
 	for chapter in chapters:
 		if not chapset or not chapset[0]:
 			break
-		if chapter.td.text != "Berserk Chapter " + chapset[0].upper():
-			continue
-		else:
-			if os.path.exists(chapter.td.text):
-				print("Error: " + chapter.td.text + " already exists")
-				continue
-			chap = chapter.td.text
-			print(chap)
-			berserk_dl.dl_chap(chapter)
-			berserk_dl.make_pdf(chap, "")
-			chapset = chapset[1:]
+		for i in range(0, len(chapset)):
+			if chapter.td.text == "Berserk Chapter " + chapset[i].upper():
+				if os.path.exists(chapter.td.text):
+					print("Error: " + chapter.td.text + " already exists")
+					continue
+				chap = chapter.td.text
+				print(chap)
+				berserk_dl.dl_chap(chapter)
+				berserk_dl.make_pdf(chap, "")
+				chapset = chapset[0:i] + chapset[i+1:]
+				break
 
+if len(sys.argv) == 1:
+	print("Usage: specific_chaps.py [-r <lower number> <higher number>] | [chapter list]")
+	exit()
 chapset = []
 r = False
 if sys.argv[1] == '-r':
@@ -55,6 +58,10 @@ if sys.argv[1] == '-r':
 		chapset = sys.argv[2:]
 else:
 	chapset = sys.argv[1:]
+for i in range(0, len(chapset)):
+	if chapset[i].isnumeric():
+		while len(chapset[i]) < 3:
+			chapset[i] = '0' + chapset[i]
 if os.path.exists('output') == False:
 	os.mkdir('output')
 os.chdir('output')
