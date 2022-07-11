@@ -1,3 +1,12 @@
+Current issues:
+- Sometimes Volume 1 gets created twice and a volume 0 gets 
+  made
+
+- Volumes 4 and 14 are out of order. I'm implementing temp
+  fixes until I can get around to making a better sort
+  algorithm
+
+
 I started this project for a couple reasons. I'm a little
 bit of a data hoarder so writing a script that could help
 me hoard a little more data is always appealing, one of
