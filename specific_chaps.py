@@ -27,8 +27,7 @@ def get_range(chapters, chapset):
 		berserk_dl.dl_chap(chapters[i])
 		berserk_dl.make_pdf(chap, "")
 		break
-                                         	
-                                         	
+
 def get_chaps(chapters, chapset):
 	for chapter in chapters:
 		if not chapset or not chapset[0]:
