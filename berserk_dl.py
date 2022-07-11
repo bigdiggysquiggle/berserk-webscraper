@@ -67,17 +67,16 @@ def make_vol(volstr):
 	print("Making " + volstr)
 	pwd = os.getcwd()
 	os.chdir(pwd.replace("jpeg", "pdf"))
+	chapdfs = os.listdir()
+	chapdfs.sort()
 	if volstr == "Volume 5":
-		chapdfs = [ "O0", "P0", "001", "002", "003", "004", "005", "006"]
+		back = chapdfs[:6]
+		chapdfs = chapdfs[6:]
+		chapdfs.extend(back)
 	elif volstr == "Volume 14":
-		chapdfs = os.listdir()
-		chapdfs.sort()
 		tmp = chapdfs[-1]
 		chapdfs[-1] = chapdfs[-2]
 		chapdfs[-2] = tmp
-	else:
-		chapdfs = os.listdir()
-		chapdfs.sort()
 	merger=PdfFileMerger(strict=False)
 	for each in chapdfs:
 		merger.append(each)
