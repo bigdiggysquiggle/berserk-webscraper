@@ -72,7 +72,6 @@ def make_vol(volstr):
 	elif volstr == "Volume 14":
 		chapdfs = os.listdir()
 		chapdfs.sort()
-		chapdfs = chapdfs[:-1]
 		tmp = chapdfs[-1]
 		chapdfs[-1] = chapdfs[-2]
 		chapdfs[-2] = tmp

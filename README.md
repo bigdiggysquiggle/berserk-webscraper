@@ -6,6 +6,11 @@ Current issues:
   fixes until I can get around to making a better sort
   algorithm
 
+TODO:
+- make a script that scrapes specific volumes
+
+- separate out the new set of chapters from the
+  currently established volumes
 
 I started this project for a couple reasons. I'm a little
 bit of a data hoarder so writing a script that could help
