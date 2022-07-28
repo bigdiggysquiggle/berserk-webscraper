@@ -119,7 +119,7 @@ def dl_chap(chapter):
 # fact that I have to correct the last couple entries
 # by hand I decided to ultimately leave this here.
 def get_vol_list():
-	return ['Berserk Chapter A0', 'Berserk Chapter D0', 'Berserk Chapter F0', 'Berserk Chapter J0', 'Berserk Chapter O0', 'Berserk Chapter 007', 'Berserk Chapter 017', 'Berserk Chapter 027', 'Berserk Chapter 037', 'Berserk Chapter 048', 'Berserk Chapter 059', 'Berserk Chapter 070', 'Berserk Chapter 080', 'Berserk Chapter 092', 'Berserk Chapter 100', 'Berserk Chapter 111', 'Berserk Chapter 122', 'Berserk Chapter 133', 'Berserk Chapter 144', 'Berserk Chapter 155', 'Berserk Chapter 166', 'Berserk Chapter 177', 'Berserk Chapter 187', 'Berserk Chapter 197', 'Berserk Chapter 207', 'Berserk Chapter 217', 'Berserk Chapter 227', 'Berserk Chapter 237', 'Berserk Chapter 247', 'Berserk Chapter 257', 'Berserk Chapter 267', 'Berserk Chapter 277', 'Berserk Chapter 287', 'Berserk Chapter 297', 'Berserk Chapter 307', 'Berserk Chapter 316', 'Berserk Chapter 325', 'Berserk Chapter 334', 'Berserk Chapter 343', 'Berserk Chapter 351', 'Berserk Chapter 359', 'Berserk Chapter 364']
+	return ['Berserk Chapter A0', 'Berserk Chapter D0', 'Berserk Chapter F0', 'Berserk Chapter J0', 'Berserk Chapter O0', 'Berserk Chapter 007', 'Berserk Chapter 017', 'Berserk Chapter 027', 'Berserk Chapter 037', 'Berserk Chapter 048', 'Berserk Chapter 059', 'Berserk Chapter 070', 'Berserk Chapter 080', 'Berserk Chapter 092', 'Berserk Chapter 100', 'Berserk Chapter 111', 'Berserk Chapter 122', 'Berserk Chapter 133', 'Berserk Chapter 144', 'Berserk Chapter 155', 'Berserk Chapter 166', 'Berserk Chapter 177', 'Berserk Chapter 187', 'Berserk Chapter 197', 'Berserk Chapter 207', 'Berserk Chapter 217', 'Berserk Chapter 227', 'Berserk Chapter 237', 'Berserk Chapter 247', 'Berserk Chapter 257', 'Berserk Chapter 267', 'Berserk Chapter 277', 'Berserk Chapter 287', 'Berserk Chapter 297', 'Berserk Chapter 307', 'Berserk Chapter 316', 'Berserk Chapter 325', 'Berserk Chapter 334', 'Berserk Chapter 343', 'Berserk Chapter 351', 'Berserk Chapter 358', 'Berserk Chapter 365', 'nonsense entry for math reasons']
 
 if __name__ == '__main__':
 	# Get our list of chapters that mark the start of each
@@ -155,7 +155,7 @@ if __name__ == '__main__':
 	# that will make up our volumes, then start
 	# actually aquiring the chapters and
 	# converting them
-	volstr = "Volume 41"
+	volstr = "newest chapters"
 	os.mkdir(volstr)
 	os.chdir(volstr)
 	os.mkdir(os.getcwd().replace("jpeg", "pdf"))
