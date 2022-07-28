@@ -47,6 +47,8 @@ def make_pdf(directory, volstr):
 		if os.path.isdir(path):
 			continue
 		imgs.append(path)
+	if not len(imgs):
+		return
 	file = directory + ".pdf"
 	with open(file,"wb") as f:
 		f.write(img2pdf.convert(imgs))
@@ -98,10 +100,13 @@ def make_vol(volstr):
 # the end. We just do a quick check to make sure that 
 # our url is clean and clean it up if it's not
 def dl_chap(chapter):
-	os.mkdir(chapter.td.text)
-	os.chdir(chapter.td.text)
+	name = chapter.td.text
 	chapter=BeautifulSoup(requests.get(chapter.a['href']).text, 'html.parser')
 	pages=chapter.find_all('img', {'class': 'pages__img'})
+	if len(pages) == 1:
+		return
+	os.mkdir(name)
+	os.chdir(name)
 	i = 1
 	for page in pages:
 		url=page.get('src')
@@ -155,7 +160,7 @@ if __name__ == '__main__':
 	# that will make up our volumes, then start
 	# actually aquiring the chapters and
 	# converting them
-	volstr = "newest chapters"
+	volstr = "Young Animal chapters (post-Miura)"
 	os.mkdir(volstr)
 	os.chdir(volstr)
 	os.mkdir(os.getcwd().replace("jpeg", "pdf"))
