@@ -7,8 +7,6 @@ Current issues:
   algorithm
 
 TODO:
-- make a script that scrapes specific volumes
-
 - separate out the new set of chapters from the
   currently established volumes
 

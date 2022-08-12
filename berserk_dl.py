@@ -47,6 +47,8 @@ def make_pdf(directory, volstr):
 		if os.path.isdir(path):
 			continue
 		imgs.append(path)
+	if not len(imgs):
+		return
 	file = directory + ".pdf"
 	with open(file,"wb") as f:
 		f.write(img2pdf.convert(imgs))
@@ -98,10 +100,13 @@ def make_vol(volstr):
 # the end. We just do a quick check to make sure that 
 # our url is clean and clean it up if it's not
 def dl_chap(chapter):
-	os.mkdir(chapter.td.text)
-	os.chdir(chapter.td.text)
+	name = chapter.td.text
 	chapter=BeautifulSoup(requests.get(chapter.a['href']).text, 'html.parser')
 	pages=chapter.find_all('img', {'class': 'pages__img'})
+	if len(pages) == 1:
+		return
+	os.mkdir(name)
+	os.chdir(name)
 	i = 1
 	for page in pages:
 		url=page.get('src')
@@ -119,7 +124,7 @@ def dl_chap(chapter):
 # fact that I have to correct the last couple entries
 # by hand I decided to ultimately leave this here.
 def get_vol_list():
-	return ['Berserk Chapter A0', 'Berserk Chapter D0', 'Berserk Chapter F0', 'Berserk Chapter J0', 'Berserk Chapter O0', 'Berserk Chapter 007', 'Berserk Chapter 017', 'Berserk Chapter 027', 'Berserk Chapter 037', 'Berserk Chapter 048', 'Berserk Chapter 059', 'Berserk Chapter 070', 'Berserk Chapter 080', 'Berserk Chapter 092', 'Berserk Chapter 100', 'Berserk Chapter 111', 'Berserk Chapter 122', 'Berserk Chapter 133', 'Berserk Chapter 144', 'Berserk Chapter 155', 'Berserk Chapter 166', 'Berserk Chapter 177', 'Berserk Chapter 187', 'Berserk Chapter 197', 'Berserk Chapter 207', 'Berserk Chapter 217', 'Berserk Chapter 227', 'Berserk Chapter 237', 'Berserk Chapter 247', 'Berserk Chapter 257', 'Berserk Chapter 267', 'Berserk Chapter 277', 'Berserk Chapter 287', 'Berserk Chapter 297', 'Berserk Chapter 307', 'Berserk Chapter 316', 'Berserk Chapter 325', 'Berserk Chapter 334', 'Berserk Chapter 343', 'Berserk Chapter 351', 'Berserk Chapter 359', 'Berserk Chapter 364']
+	return ['Berserk Chapter A0', 'Berserk Chapter D0', 'Berserk Chapter F0', 'Berserk Chapter J0', 'Berserk Chapter O0', 'Berserk Chapter 007', 'Berserk Chapter 017', 'Berserk Chapter 027', 'Berserk Chapter 037', 'Berserk Chapter 048', 'Berserk Chapter 059', 'Berserk Chapter 070', 'Berserk Chapter 080', 'Berserk Chapter 092', 'Berserk Chapter 100', 'Berserk Chapter 111', 'Berserk Chapter 122', 'Berserk Chapter 133', 'Berserk Chapter 144', 'Berserk Chapter 155', 'Berserk Chapter 166', 'Berserk Chapter 177', 'Berserk Chapter 187', 'Berserk Chapter 197', 'Berserk Chapter 207', 'Berserk Chapter 217', 'Berserk Chapter 227', 'Berserk Chapter 237', 'Berserk Chapter 247', 'Berserk Chapter 257', 'Berserk Chapter 267', 'Berserk Chapter 277', 'Berserk Chapter 287', 'Berserk Chapter 297', 'Berserk Chapter 307', 'Berserk Chapter 316', 'Berserk Chapter 325', 'Berserk Chapter 334', 'Berserk Chapter 343', 'Berserk Chapter 351', 'Berserk Chapter 358', 'Berserk Chapter 365', 'nonsense entry for math reasons']
 
 if __name__ == '__main__':
 	# Get our list of chapters that mark the start of each
@@ -155,7 +160,7 @@ if __name__ == '__main__':
 	# that will make up our volumes, then start
 	# actually aquiring the chapters and
 	# converting them
-	volstr = "Volume 41"
+	volstr = "Young Animal chapters (post-Miura)"
 	os.mkdir(volstr)
 	os.chdir(volstr)
 	os.mkdir(os.getcwd().replace("jpeg", "pdf"))
