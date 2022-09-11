@@ -1,14 +1,8 @@
-Current issues:
-- Sometimes Volume 1 gets created twice and a volume 0 gets 
-  made
-
-- Volumes 4 and 14 are out of order. I'm implementing temp
-  fixes until I can get around to making a better sort
-  algorithm
-
 TODO:
-- separate out the new set of chapters from the
-  currently established volumes
+- implement a regex that also matches any fractional
+  numbers and implement it into a sorting function 
+
+- find a way to scrape comick.fun in headless mode
 
 I started this project for a couple reasons. I'm a little
 bit of a data hoarder so writing a script that could help

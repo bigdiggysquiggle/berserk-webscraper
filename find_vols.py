@@ -51,17 +51,17 @@ def find_volumes(chapters, i, volumes=[]):
 		os.chdir("..")
 	return i, volumes
 
-os.chdir("./output/jpeg")
-dirs=os.listdir()
-dirs.sort()
+if __name__ == 'main':
+	os.chdir("./output/jpeg")
+	dirs=os.listdir()
+	dirs.sort()
 # Because Berserk starts with chapter A0 we have to
 # either come up with a different sort method, or be
 # lazy and split the list into two lists that will get
 # processed separately
-dirs1=dirs[365:]
-dirs2=dirs[:365]
-
-i = 1
-i, volumes = find_volumes(dirs1, i)
-i, volumes = find_volumes(dirs2, i, volumes)
-print(volumes)
+	dirs1=dirs[365:]
+	dirs2=dirs[:365]
+	i = 1
+	i, volumes = find_volumes(dirs1, i)
+	i, volumes = find_volumes(dirs2, i, volumes)
+	print(volumes)

@@ -84,7 +84,6 @@ def make_vol(volstr):
 		merger.append(each)
 	merger.write(volstr + ".pdf")
 	merger.close()
-	merger=PdfFileMerger()
 	os.chdir(pwd)
 	print("Complete")
 
@@ -97,10 +96,9 @@ def make_vol(volstr):
 # and which urls I don't scrape. The one minor issue I
 # ran into is that getting the url from our instance of
 # BeautifulSoup sometimes puts a unicode character on
-# the end. We just do a quick check to make sure that 
+# the end. We just do a quick check to make sure that
 # our url is clean and clean it up if it's not
-def dl_chap(chapter):
-	name = chapter.td.text
+def dl_chap(chapter, name, regex=r"(readberserk|staticflickr)"):
 	chapter=BeautifulSoup(requests.get(chapter.a['href']).text, 'html.parser')
 	pages=chapter.find_all('img', {'class': 'pages__img'})
 	if len(pages) == 1:
@@ -110,7 +108,7 @@ def dl_chap(chapter):
 	i = 1
 	for page in pages:
 		url=page.get('src')
-		if not re.search(r"(readberserk|staticflickr)", url):
+		if not re.search(regex, url):
 			continue
 		if url[-1] != 'g':
 			url=url[:-1]
@@ -126,20 +124,24 @@ def dl_chap(chapter):
 def get_vol_list():
 	return ['Berserk Chapter A0', 'Berserk Chapter D0', 'Berserk Chapter F0', 'Berserk Chapter J0', 'Berserk Chapter O0', 'Berserk Chapter 007', 'Berserk Chapter 017', 'Berserk Chapter 027', 'Berserk Chapter 037', 'Berserk Chapter 048', 'Berserk Chapter 059', 'Berserk Chapter 070', 'Berserk Chapter 080', 'Berserk Chapter 092', 'Berserk Chapter 100', 'Berserk Chapter 111', 'Berserk Chapter 122', 'Berserk Chapter 133', 'Berserk Chapter 144', 'Berserk Chapter 155', 'Berserk Chapter 166', 'Berserk Chapter 177', 'Berserk Chapter 187', 'Berserk Chapter 197', 'Berserk Chapter 207', 'Berserk Chapter 217', 'Berserk Chapter 227', 'Berserk Chapter 237', 'Berserk Chapter 247', 'Berserk Chapter 257', 'Berserk Chapter 267', 'Berserk Chapter 277', 'Berserk Chapter 287', 'Berserk Chapter 297', 'Berserk Chapter 307', 'Berserk Chapter 316', 'Berserk Chapter 325', 'Berserk Chapter 334', 'Berserk Chapter 343', 'Berserk Chapter 351', 'Berserk Chapter 358', 'Berserk Chapter 365', 'nonsense entry for math reasons']
 
-if __name__ == '__main__':
-	# Get our list of chapters that mark the start of each
-	# volume
-	volumes = get_vol_list()
+def setup_dirs(name='Berserk'):
 	# Remove any previous output so that we don't have to
 	# factor previous output into our logic, then make
 	# our output directories
-	if os.path.exists('output'):
-		shutil.rmtree('output')
-	os.mkdir('output')
-	os.chdir('output')
+	if os.path.exists(name):
+		shutil.rmtree(name)
+	os.mkdir(name)
+	os.chdir(name)
 	os.mkdir('jpeg')
 	os.mkdir('pdf')
 	os.chdir('jpeg')
+
+
+if __name__ == '__main__':
+	# Get our list of chapters that mark the start of each
+	# volume
+	setup_dirs()
+	volumes = get_vol_list()
 	# Get our main page, make our soup, and start
 	# finding our chapters
 	page=requests.get("https://readberserk.com")
@@ -167,7 +169,7 @@ if __name__ == '__main__':
 	for chapter in chapters:
 		chap = chapter.td.text
 		print(chap)
-		dl_chap(chapter)
+		dl_chap(chapter, chap)
 		make_pdf(chap, volstr)
 		if chap == volumes[i]:
 			make_vol(volstr)

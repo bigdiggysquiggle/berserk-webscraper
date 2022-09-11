@@ -16,7 +16,7 @@ def get_range(chapters, chapset):
 				i += 1
 			chap = chapters[i].td.text
 			print(chap)
-			berserk_dl.dl_chap(chapters[i])
+			berserk_dl.dl_chap(chapters[i], chap)
 			berserk_dl.make_pdf(chap, "")
 			i += 1
 		if os.path.exists(chapters[i].td.text):
@@ -24,7 +24,7 @@ def get_range(chapters, chapset):
 			continue
 		chap = chapters[i].td.text
 		print(chap)
-		berserk_dl.dl_chap(chapters[i])
+		berserk_dl.dl_chap(chapters[i], chap)
 		berserk_dl.make_pdf(chap, "")
 		break
 
@@ -39,41 +39,42 @@ def get_chaps(chapters, chapset):
 					continue
 				chap = chapter.td.text
 				print(chap)
-				berserk_dl.dl_chap(chapter)
+				berserk_dl.dl_chap(chapter, chap)
 				berserk_dl.make_pdf(chap, "")
 				chapset = chapset[0:i] + chapset[i+1:]
 				break
 
-if len(sys.argv) == 1:
-	print("Usage: specific_chaps.py [-r <lower number> <higher number>] | [chapter list]")
-	exit()
-chapset = []
-r = False
-if sys.argv[1] == '-r':
-	if len(sys.argv) != 4:
-		print("Error: -r takes exactly 2 arguments")
+if __name__ == 'main':
+	if len(sys.argv) == 1:
+		print("Usage: specific_chaps.py [-r <lower number> <higher number>] | [chapter list]")
+		exit()
+	chapset = []
+	r = False
+	if sys.argv[1] == '-r':
+		if len(sys.argv) != 4:
+			print("Error: -r takes exactly 2 arguments")
+		else:
+			r = True
+			chapset = sys.argv[2:]
 	else:
-		r = True
-		chapset = sys.argv[2:]
-else:
-	chapset = sys.argv[1:]
-for i in range(0, len(chapset)):
-	if chapset[i].isnumeric():
-		while len(chapset[i]) < 3:
-			chapset[i] = '0' + chapset[i]
-if os.path.exists('output') == False:
-	os.mkdir('output')
-os.chdir('output')
-if os.path.exists('jpeg') == False:
-	os.mkdir('jpeg')
-if os.path.exists('pdf') == False:
-	os.mkdir('pdf')
-os.chdir('jpeg')
-page = requests.get("https://readberserk.com")
-soup = BeautifulSoup(page.text, 'html.parser')
-chapters = soup.select('#content > div > div.col-md-8 > div.card.card-table > div.card-body.table-responsive.p-0 > table > tbody')
-chapters = chapters[0].find_all('tr')
-if r == True:
-	get_range(chapters, chapset)
-else:
-	get_chaps(chapters, chapset)
+		chapset = sys.argv[1:]
+	for i in range(0, len(chapset)):
+		if chapset[i].isnumeric():
+			while len(chapset[i]) < 3:
+				chapset[i] = '0' + chapset[i]
+	if os.path.exists('output') == False:
+		os.mkdir('output')
+	os.chdir('output')
+	if os.path.exists('jpeg') == False:
+		os.mkdir('jpeg')
+	if os.path.exists('pdf') == False:
+		os.mkdir('pdf')
+	os.chdir('jpeg')
+	page = requests.get("https://readberserk.com")
+	soup = BeautifulSoup(page.text, 'html.parser')
+	chapters = soup.select('#content > div > div.col-md-8 > div.card.card-table > div.card-body.table-responsive.p-0 > table > tbody')
+	chapters = chapters[0].find_all('tr')
+	if r == True:
+		get_range(chapters, chapset)
+	else:
+		get_chaps(chapters, chapset)
