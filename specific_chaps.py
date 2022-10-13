@@ -44,7 +44,7 @@ def get_chaps(chapters, chapset):
 				chapset = chapset[0:i] + chapset[i+1:]
 				break
 
-if __name__ == 'main':
+if __name__ == '__main__':
 	if len(sys.argv) == 1:
 		print("Usage: specific_chaps.py [-r <lower number> <higher number>] | [chapter list]")
 		exit()
