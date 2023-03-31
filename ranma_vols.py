@@ -3,7 +3,7 @@
 import os
 import re
 import shutil
-from PyPDF2 import PdfFileMerger
+from PyPDF2 import PdfMerger
 
 vol_list = [ 17, 36, 58, 80, 102, 124, 146, 168, 190, 212, 234, 256, 278, 300, 322, 344, 366, 388, 407 ]
 
@@ -15,7 +15,7 @@ def make_vol(volstr):
 	os.chdir(pwd.replace("jpeg", "pdf"))
 	chapdfs = os.listdir()
 	chapdfs.sort(key=to_num)
-	merger=PdfFileMerger(strict=False)
+	merger=PdfMerger(strict=False)
 	for each in chapdfs:
 		merger.append(each)
 	merger.write(volstr + ".pdf")

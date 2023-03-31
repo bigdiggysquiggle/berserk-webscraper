@@ -1,0 +1,5 @@
+sort out Vagabond vol 32
+scrape Vinland Saga https://read-vinlandsaga.com/
+--chap 201 isn't real
+
+remove functions that exist in multiple scripts. make better import choices

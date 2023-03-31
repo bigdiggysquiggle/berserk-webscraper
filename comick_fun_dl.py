@@ -10,6 +10,7 @@ import berserk_dl
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.firefox.options import Options
+from PyPDF2 import PdfMerger
 
 def make_vols(start, end, vol_list, name):
 	os.chdir(name)
@@ -30,7 +31,7 @@ def make_vol(volstr):
 		return int(re.split(r"\D+", s)[-2])
 	chapdfs = os.listdir()
 	chapdfs.sort(key=to_num)
-	merger = PdfFileMerger(strict=False)
+	merger = PdfMerger(strict=False)
 	for each in chapdfs:
 		merger.append(each)
 	merger.write(volstr + ".pdf")

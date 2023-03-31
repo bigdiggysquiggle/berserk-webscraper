@@ -6,7 +6,7 @@ import shutil
 import img2pdf
 import requests
 from bs4 import BeautifulSoup
-from PyPDF2 import PdfFileMerger
+from PyPDF2 import PdfMerger
 
 # This is the main script. When ran, it will download
 # every single panel from every single chapter, condense
@@ -41,7 +41,7 @@ def make_pdf(directory, volstr):
 	li.sort(key=to_num)
 	imgs = []
 	for fname in li:
-		if not fname.endswith(".jpeg"):
+		if not fname.endswith(".jpeg"): #switch to a regex with more image types
 			continue
 		path = os.getcwd() + '/' + fname
 		if os.path.isdir(path):
@@ -50,19 +50,23 @@ def make_pdf(directory, volstr):
 	if not len(imgs):
 		return
 	file = directory + ".pdf"
-	with open(file,"wb") as f:
-		f.write(img2pdf.convert(imgs))
-	shutil.move(file, os.getcwd().split("jpeg")[0] + "pdf/" + volstr)
+	try:
+		with open(file,"wb") as f:
+			f.write(img2pdf.convert(imgs))
+		shutil.move(file, os.getcwd().split("jpeg")[0] + "pdf/" + volstr)
+	except:
+		os.remove(file)
+		raise Exception("Could not create pdf")
 	os.chdir('..')
 
 
 # Once we have finished downloading and converting each
 # chapter of a volume into pdfs, we still want to create
-# a big pdf containing the entire volume. PdfFileMerger
-# saves the day here, offering what's probably the easiest
-# way to use what we've already done up to this point. All
+# a big pdf containing the entire volume. PdfMerger saves
+# the day here, offering what's probably the easiest way
+# to use what we've already done up to this point. All
 # we have to do is append each chapter to the internal
-# list the PdfFileMerger keeps track of, then tell it to
+# list the PdfMerger keeps track of, then tell it to
 # write them all to a given output file. Then we just
 # close the merger and that's that
 def make_vol(volstr):
@@ -70,16 +74,16 @@ def make_vol(volstr):
 	pwd = os.getcwd()
 	os.chdir(pwd.replace("jpeg", "pdf"))
 	chapdfs = os.listdir()
-	chapdfs.sort()
-	if volstr == "Volume 5":
-		back = chapdfs[:6]
-		chapdfs = chapdfs[6:]
-		chapdfs.extend(back)
-	elif volstr == "Volume 14":
-		tmp = chapdfs[-1]
-		chapdfs[-1] = chapdfs[-2]
-		chapdfs[-2] = tmp
-	merger=PdfFileMerger(strict=False)
+	chapdfs.sort() #make a key that sorts alpha, then numeric
+#	if volstr == "Volume 5":
+#		back = chapdfs[:6]
+#		chapdfs = chapdfs[6:]
+#		chapdfs.extend(back)
+#	elif volstr == "Volume 14":
+#		tmp = chapdfs[-1]
+#		chapdfs[-1] = chapdfs[-2]
+#		chapdfs[-2] = tmp
+	merger=PdfMerger(strict=False)
 	for each in chapdfs:
 		merger.append(each)
 	merger.write(volstr + ".pdf")

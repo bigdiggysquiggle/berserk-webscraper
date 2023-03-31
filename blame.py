@@ -1,13 +1,11 @@
 #!/usr/bin/env python3
 
 import os
-import re
 import shutil
 import img2pdf
 import requests
 import berserk_dl
 from bs4 import BeautifulSoup
-from PyPDF2 import PdfFileMerger
 
 def dl_chap(chapter):
 	name = chapter.text
