@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import os
+import sys
 import time
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
