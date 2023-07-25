@@ -166,7 +166,7 @@ if __name__ == '__main__':
 	# that will make up our volumes, then start
 	# actually aquiring the chapters and
 	# converting them
-	volstr = "Young Animal chapters (post-Miura)"
+	volstr = "Berserk - Young Animal chapters (post-Miura)"
 	os.mkdir(volstr)
 	os.chdir(volstr)
 	os.mkdir(os.getcwd().replace("jpeg", "pdf"))
@@ -178,7 +178,7 @@ if __name__ == '__main__':
 		if chap == volumes[i]:
 			make_vol(volstr)
 			if l+i:
-				volstr = "Volume " + str(l+i)
+				volstr = "Berserk - Volume " + str(l+i)
 				i -= 1
 				os.mkdir("../" + volstr)
 				os.chdir("../" + volstr)

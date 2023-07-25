@@ -1,2 +1,8 @@
 remove functions that exist in multiple scripts. make better import choices
 migrate the volume tracking method from vinland saga into other methods as well
+
+https://oyasumi-punpun-manga.com/
+
+i + url.split('/')[-1]
+
+make scripts output volumes in format '<name> - Volume <number>'

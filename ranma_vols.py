@@ -27,9 +27,9 @@ def move_chaps(start, stop, num):
 	os.mkdir("Volume " + str(num))
 	while (start <= stop):
 		try:
-			shutil.move("Ranma 1_2 Chapter " + str(start), "Volume " + str(num))
+			shutil.move("Ranma 1_2 Chapter " + str(start), "Ranma 1_2 - Volume " + str(num))
 		except:
-			shutil.move("Ranma 1_2 Chapter " + str(start) + ".pdf", "Volume " + str(num))
+			shutil.move("Ranma 1_2 Chapter " + str(start) + ".pdf", "Ranma 1_2 - Volume " + str(num))
 		start += 1
 
 if __name__ == '__main__':

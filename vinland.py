@@ -63,7 +63,7 @@ if __name__ == '__main__':
 	chapters=soup.select('#post-7 > div > figure')[0].find_all('ul')[-1].find_all('li')
 	chapters=chapters[1:]
 	i = -1
-	volst = "Volume " + str(len(vols))
+	volst = "Vinland Saga - Volume " + str(len(vols))
 	os.mkdir(volst)
 	os.chdir(volst)
 	os.mkdir(os.getcwd().replace('jpeg', 'pdf'))
@@ -79,9 +79,9 @@ if __name__ == '__main__':
 			berserk_dl.make_pdf(chap, volst)
 		if chap == vols[i]:
 			berserk_dl.make_vol(volst)
-			if volst == "Volume 1": #I don't like having this check here
+			if volst == "Vinland Saga = Volume 1": #I don't like having this check here
 				exit()
-			volst = "Volume " + str(int(volst.split(' ')[1]) - 1)
+			volst = "Vinland Saga - Volume " + str(int(volst.split(' ')[1]) - 1)
 			i -= 1
 			if vols[i] != vols[0]:
 				os.mkdir("../" + volst)
